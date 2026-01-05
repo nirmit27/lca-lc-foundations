@@ -1,7 +1,7 @@
 [project]
-name = "lc-foundations"
+name = "lca-foundations"
 version = "0.1.0"
-description = "LangChain foundations demo"
+description = "LangChain Academy Foundations Demo Repo"
 requires-python = ">=3.12,<3.14"
 dependencies = [
     "langchain>=1.1.3",

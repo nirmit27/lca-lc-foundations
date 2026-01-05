@@ -1,7 +1,10 @@
-# env_utils.py
-# this utility will check a students setup to verify it has
-# packages loaded, python and or node installed and api keys available
-# it references the pyproject.toml file and example.env for requirements
+"""
+ENVIRONMENT UTILS
+
+This utility will check a students setup to verify it has
+packages loaded, python and or node installed and api keys available
+it references the pyproject.toml file and example.env for requirements
+"""
 
 import os
 import sys
@@ -9,12 +12,14 @@ import shutil
 from pathlib import Path
 from dotenv import dotenv_values, load_dotenv
 
+
 def summarize_value(value: str) -> str:
     """Return masked form: ****last4 or boolean string."""
     lower = value.lower()
     if lower in ("true", "false"):
         return lower
     return "****" + value[-4:] if len(value) > 4 else "****" + value
+
 
 def check_manual_installs(file_path: str):
     """Check if manually installed applications are available in PATH.
@@ -28,15 +33,15 @@ def check_manual_installs(file_path: str):
         return
 
     manual_installs = []
-    with open(file_path, 'r') as f:
+    with open(file_path, "r") as f:
         for line in f:
             stripped = line.strip()
             # Look for the manual installs comment
-            if stripped.startswith('# Manual installs for checking:'):
+            if stripped.startswith("# Manual installs for checking:"):
                 # Extract the comma-delimited list after the colon
-                apps_str = stripped.split(':', 1)[1].strip()
+                apps_str = stripped.split(":", 1)[1].strip()
                 if apps_str:
-                    manual_installs = [app.strip() for app in apps_str.split(',')]
+                    manual_installs = [app.strip() for app in apps_str.split(",")]
                 break
 
     if not manual_installs:
@@ -75,23 +80,23 @@ def doublecheck_env(file_path: str):
 
     # Parse the example file to identify required keys and their example values
     required_keys = {}
-    with open(file_path, 'r') as f:
+    with open(file_path, "r") as f:
         lines = f.readlines()
         is_required_section = False
         for line in lines:
             stripped = line.strip()
             # Check if this is a comment line
-            if stripped.startswith('#'):
+            if stripped.startswith("#"):
                 # Check if comment contains "required" (case-insensitive)
-                if 'required' in stripped.lower():
+                if "required" in stripped.lower():
                     is_required_section = True
                 else:
                     # A different comment section starts
                     is_required_section = False
             # Check if this is a key=value line
-            elif '=' in stripped and not stripped.startswith('#'):
-                key = stripped.split('=')[0].strip()
-                value = stripped.split('=', 1)[1].strip()
+            elif "=" in stripped and not stripped.startswith("#"):
+                key = stripped.split("=")[0].strip()
+                value = stripped.split("=", 1)[1].strip()
                 if is_required_section:
                     required_keys[key] = value
 
@@ -135,21 +140,29 @@ def check_venv(expected_venv_path: str = ".venv"):
     expected_path_obj = Path(expected_venv_path).resolve()
 
     # Check if running in a virtual environment
-    in_venv = hasattr(sys, 'real_prefix') or (hasattr(sys, 'base_prefix') and sys.base_prefix != sys.prefix)
+    in_venv = hasattr(sys, "real_prefix") or (
+        hasattr(sys, "base_prefix") and sys.base_prefix != sys.prefix
+    )
 
     if not in_venv:
         issues.append("⚠️  Virtual environment is not activated")
-        issues.append("   Run: source .venv/bin/activate  (or .venv\\Scripts\\activate on Windows)")
+        issues.append(
+            "   Run: source .venv/bin/activate  (or .venv\\Scripts\\activate on Windows)"
+        )
     else:
         # Virtual env is activated, check if it's the expected one
         if current_prefix != expected_path_obj:
-            issues.append(f"⚠️  Activated venv ({current_prefix}) doesn't match expected path ({expected_path_obj})")
+            issues.append(
+                f"⚠️  Activated venv ({current_prefix}) doesn't match expected path ({expected_path_obj})"
+            )
 
     # Check if uv is available
     uv_available = shutil.which("uv") is not None
 
     if not uv_available:
-        issues.append("ℹ️  'uv' command not found - this project recommends using uv for package management")
+        issues.append(
+            "ℹ️  'uv' command not found - this project recommends using uv for package management"
+        )
         issues.append("   Install uv: https://docs.astral.sh/uv/")
 
     # Print results
@@ -175,8 +188,10 @@ from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.version import Version
 
+
 def _fmt_row(cols, widths):
     return " | ".join(str(c).ljust(w) for c, w in zip(cols, widths))
+
 
 def doublecheck_pkgs(pyproject_path="pyproject.toml", verbose=False):
     p = Path(pyproject_path)
@@ -190,7 +205,9 @@ def doublecheck_pkgs(pyproject_path="pyproject.toml", verbose=False):
     project = data.get("project", {})
     python_spec_str = project.get("requires-python") or ">=3.11"
 
-    py_ver = Version(f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}")
+    py_ver = Version(
+        f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+    )
     py_ok = py_ver in SpecifierSet(python_spec_str)
 
     # Load deps (PEP 621)
@@ -198,7 +215,9 @@ def doublecheck_pkgs(pyproject_path="pyproject.toml", verbose=False):
     if not deps:
         if verbose or not py_ok:
             print("No [project].dependencies found in pyproject.toml.")
-            print(f"Python {py_ver} {'satisfies' if py_ok else 'DOES NOT satisfy'} requires-python: {python_spec_str}")
+            print(
+                f"Python {py_ver} {'satisfies' if py_ok else 'DOES NOT satisfy'} requires-python: {python_spec_str}"
+            )
             print(f"Executable: {sys.executable}")
         return None
 
@@ -213,7 +232,13 @@ def doublecheck_pkgs(pyproject_path="pyproject.toml", verbose=False):
         except Exception:
             name, spec = dep, "(unparsed)"
 
-        rec = {"package": name, "required": spec, "installed": "-", "path": "-", "status": "❌ Missing"}
+        rec = {
+            "package": name,
+            "required": spec,
+            "installed": "-",
+            "path": "-",
+            "status": "❌ Missing",
+        }
 
         try:
             installed_ver = metadata.version(name)
@@ -244,17 +269,33 @@ def doublecheck_pkgs(pyproject_path="pyproject.toml", verbose=False):
     should_print = verbose or (not py_ok) or bool(problems)
     if should_print:
         # Python status
-        print(f"Python {py_ver} {'satisfies' if py_ok else 'DOES NOT satisfy'} requires-python: {python_spec_str}")
+        print(
+            f"Python {py_ver} {'satisfies' if py_ok else 'DOES NOT satisfy'} requires-python: {python_spec_str}"
+        )
 
         # Table (no hints column)
         headers = ["package", "required", "installed", "status", "path"]
+
         def short_path(s, maxlen=80):
             s = str(s)
-            return s if len(s) <= maxlen else ("…" + s[-(maxlen-1):])
-        rows = [[r["package"], r["required"], r["installed"], r["status"], short_path(r["path"])] for r in results]
-        widths = [max(len(h), *(len(str(row[i])) for row in rows)) for i, h in enumerate(headers)]
+            return s if len(s) <= maxlen else ("…" + s[-(maxlen - 1) :])
+
+        rows = [
+            [
+                r["package"],
+                r["required"],
+                r["installed"],
+                r["status"],
+                short_path(r["path"]),
+            ]
+            for r in results
+        ]
+        widths = [
+            max(len(h), *(len(str(row[i])) for row in rows))
+            for i, h in enumerate(headers)
+        ]
         print(_fmt_row(headers, widths))
-        print(_fmt_row(["-"*w for w in widths], widths))
+        print(_fmt_row(["-" * w for w in widths], widths))
         for row in rows:
             print(_fmt_row(row, widths))
 
@@ -262,7 +303,9 @@ def doublecheck_pkgs(pyproject_path="pyproject.toml", verbose=False):
         if problems:
             print("\nIssues detected:")
             for r in problems:
-                print(f"- {r['package']}: {r['status']} (required {r['required']}, installed {r['installed']}, path {r['path']})")
+                print(
+                    f"- {r['package']}: {r['status']} (required {r['required']}, installed {r['installed']}, path {r['path']})"
+                )
 
         if verbose or problems or not py_ok:
             print("\nEnvironment:")
