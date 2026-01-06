@@ -1,13 +1,31 @@
 # 🔗 Introduction to LangChain - Python
 
-## Introduction
+## 🦜 Introduction
 
-Welcome to LangChain Academy's Introduction to LangChain course!
+Welcome to **LangChain Academy's** [Introduction to LangChain](https://academy.langchain.com/courses/foundation-introduction-to-langchain-python) course!
+
+
+## 🚀 Environment Configuration
+
+The following environment variables have to be exported via `bash` CLI in order to get things up and running :
+
+```bash
+export GEMINI_API_MODEL="**************" # any of your choice (check the available ones)
+export GOOGLE_API_KEY="****************" # what we REALLY need
+export LANGSMITH_PROJECT="**************" # self-explanatory
+export LANGSMITH_ENDPOINT="**************" # pretty much the same for everyone
+export LANGSMITH_API_KEY="**************" # ofc ofc
+export LANGSMITH_TRACING="true" # having this as `false` is meaningless
+export TAVILY_API_KEY="**************" # for web search tooling (pretty cool)
+```
+
+- #### PLEASE remove everything that follows the '`#`' from the above commands, including the '`#`' as well before putting them in the shell.
 
 ---
 
-## 🚀 Setup
+> In progress 🏗️
 
+<!--
 ### Prerequisites
 
 - The Chrome browser is recommended
@@ -201,3 +219,4 @@ This course uses the [dotenv](https://pypi.org/project/python-dotenv) module to 
 ### Development Environment
 
 The course uses [Jupyter](https://jupyter.org/) notebooks. Jupyter is installed and can be run as described above. Jupyter notebooks can also be edited and run in VSCode or other VSCode variants such as Windsurf or Cursor.  
+-->
