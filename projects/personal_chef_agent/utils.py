@@ -15,11 +15,11 @@ def img_encoder(img_file):
     Returns:
         tuple: (base64_encoded_string, mime_type)
     """
-    # Reset file pointer to the beginning
+    # NOTE: Reset file pointer to the beginning
     img_file.seek(0)
     img_bytes = img_file.read()
+    
     img_b64 = base64.b64encode(img_bytes).decode("utf-8")
-
     filename = img_file.name.lower()
 
     # NOTE: Detect mime type from file extension.

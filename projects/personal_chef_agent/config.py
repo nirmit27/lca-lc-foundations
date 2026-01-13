@@ -9,8 +9,7 @@ load_dotenv()
 
 # Gemini API
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-# GEMINI_API_MODEL = os.getenv("GEMINI_API_MODEL")
-GEMINI_API_MODEL = "gemini-2.5-flash"
+GEMINI_API_MODEL = os.getenv("GEMINI_API_MODEL")
 
 # Application
 input_modes = ["List of ingredients 📝", "An image of your inventory 📸"]
