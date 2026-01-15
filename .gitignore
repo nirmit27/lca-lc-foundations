@@ -212,3 +212,9 @@ __marimo__/
 # Misc.
 /test
 setup.bash
+
+/logs
+*/logs
+**/logs
+
+/logs/*
