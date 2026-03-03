@@ -218,3 +218,4 @@ setup.bash
 **/logs
 
 /logs/*
+*/mockup/*
