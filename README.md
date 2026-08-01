@@ -10,16 +10,12 @@ Welcome to **LangChain Academy's** [Introduction to LangChain](https://academy.l
 The following environment variables have to be exported via `bash` CLI in order to get things up and running :
 
 ```bash
-export GEMINI_API_MODEL="**************" # any of your choice (check the available ones)
-export GOOGLE_API_KEY="****************" # what we REALLY need
 export LANGSMITH_PROJECT="**************" # self-explanatory
 export LANGSMITH_ENDPOINT="**************" # pretty much the same for everyone
 export LANGSMITH_API_KEY="**************" # ofc ofc
 export LANGSMITH_TRACING="true" # having this as `false` is meaningless
 export TAVILY_API_KEY="**************" # for web search tooling (pretty cool)
 ```
-
-- #### PLEASE remove everything that follows the '`#`' from the above commands, including the '`#`' as well before putting them in the shell.
 
 ---
 

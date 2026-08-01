@@ -113,7 +113,9 @@ def doublecheck_env(file_path: str):
             if key in required_keys:
                 example_val = required_keys[key]
                 if current == example_val:
-                    issues.append(f"  ⚠️  {key} still has the example/placeholder value")
+                    issues.append(
+                        f"  ⚠️  {key} still has the example/placeholder value"
+                    )
         else:
             print(f"{key}=<not set>")
             if key in required_keys:
