@@ -1,35 +1,61 @@
+# Project Management
 poetry
+
+# Environment configuration
 dotenv
+
+# Data manipulation
 pypdf
+pymupdf
+pymupdf4llm
 scipy
+pillow
+
+# Jupyter & Interactive Computing
 jupyterlab
 ipykernel
 ipywidgets
+
+# Audio/Media
 sounddevice
+
+# LangChain — Core
 langchain
-langsmith
 langchain_core
+langsmith
+
+# LangChain — Community & Integrations
 langchain-community
 langchain-text-splitters
-langchain-mcp-adapters
 langchain-model-profiles
-langchain-openai
-langchain-anthropic
+langchain-mcp-adapters
+langchain-tavily
+
+# LangChain — Model Providers
+langchain_ollama
 langchain-google-genai
 langchain-google-vertexai
-langchain_ollama
-langchain-tavily
+
+# LangGraph
 langgraph
 langgraph-cli
 langgraph-api
-huggingface_hub
+
+# External Services & APIs
 tavily
 tavily-python
-mcp
-mcp-server-time
+huggingface_hub
 google-auth
 google-auth-oauthlib
-streamlit
-pillow
+
+# MCP
+mcp
+mcp-server-time
 fastmcp
+
+# Web / API Servers
 fastapi
+streamlit
+
+# Misc.
+tqdm

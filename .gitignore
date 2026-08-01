@@ -223,3 +223,6 @@ setup.bash
 
 */poc
 *test*
+
+*/**/resume_parser/input
+*/**/resume_parser/output
