@@ -4,12 +4,13 @@ poetry
 # Environment configuration
 dotenv
 
-# Data manipulation
+# Data handling
 pypdf
 pymupdf
 pymupdf4llm
 scipy
 pillow
+SQLAlchemy
 
 # Jupyter & Interactive Computing
 jupyterlab
